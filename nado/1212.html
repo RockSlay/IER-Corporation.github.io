@@ -1,0 +1,45 @@
+<h2>JavaScript поиск по странице</h2>
+<input type="text" id="text-to-find" value=""> 
+<input type="button" onclick="javascript: FindOnPage('text-to-find'); return false;" value="Искать"/>
+<br/><i>Введите слово или фразу для поиска.</i>
+<hr/>
+
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo unde at beatae deleniti quibusdam necessitatibus sequi enim tenetur eius obcaecati. Nihil natus consectetur dicta tenetur praesentium libero iste ullam expedita dolorem, ut, fugiat ad alias. Nulla cum sequi aliquid vel voluptates rem odit delectus a ea doloribus dolorum omnis, ipsum eveniet minima. Laborum commodi nihil veritatis magni odio quod quisquam!
+</body>
+
+<script>
+var lastResFind=""; // последний удачный результат
+var copy_page=""; // копия страницы в ихсодном виде
+function TrimStr(s) {
+     s = s.replace( /^\s+/g, '');
+  return s.replace( /\s+$/g, '');
+}
+function FindOnPage(inputId) {//ищет текст на странице, в параметр передается ID поля для ввода
+  var obj = window.document.getElementById(inputId);
+  var textToFind;
+ 
+  if (obj) {
+    textToFind = TrimStr(obj.value);//обрезаем пробелы
+  } else {
+    alert("Введенная фраза не найдена");
+    return;
+  }
+  if (textToFind == "") {
+    alert("Вы ничего не ввели");
+    return;
+  }
+  
+  if(document.body.innerHTML.indexOf(textToFind)=="-1")
+  alert("Ничего не найдено, проверьте правильность ввода!");
+  
+  if(copy_page.length>0)
+        document.body.innerHTML=copy_page;
+  else copy_page=document.body.innerHTML;
+
+  
+  document.body.innerHTML = document.body.innerHTML.replace(eval("/name="+lastResFind+"/gi")," ");//стираем предыдущие якори для скрола
+  document.body.innerHTML = document.body.innerHTML.replace(eval("/"+textToFind+"/gi"),"<a name="+textToFind+" style='background:red;color:#fff;'>"+textToFind+"</a>"); //Заменяем найденный текст ссылками с якорем;
+  lastResFind=textToFind; // сохраняем фразу для поиска, чтобы в дальнейшем по ней стереть все ссылки
+  window.location = '#'+textToFind;//перемещаем скрол к последнему найденному совпадению
+ } 
+ </script>

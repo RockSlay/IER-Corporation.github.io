@@ -1,0 +1,36 @@
+<h2>Поле фильтра</h2>
+   <script src="RyvPBr.js"></script>
+   <script type="text/javascript">
+$("body").on("keyup", "#filter-input", function() {
+  var searchText =
+      $("#filter-input")
+  .val()
+  .toLowerCase() || "___";
+  $("#container > p").each(function(i) {
+    var elem = $(this);
+    if (
+      elem
+      .html()
+      .toLowerCase()
+      .indexOf(searchText) === -1
+    ) {
+      elem.addClass("hidden");
+    } else {
+      elem.removeClass("hidden");
+    }
+  });
+});
+
+</script>
+    <link href="RyvPBr.css" rel="stylesheet" />
+<input id='filter-input' type='text'> <i>(текст для поиска здесь)</i>
+<div id='container'>
+  <p class='hidden'>Пиза</p>
+  <p class='hidden'>Париж</p>
+  <p class='hidden'>Урюпинск</p>
+  <p class='hidden'>Минусинск</p>
+  <p class='hidden'>Плюсинск</p>
+  <p class='hidden'>Юго-Северный</p>
+  <p class='hidden'>Нижние Васюки</p>
+  
+</div>
